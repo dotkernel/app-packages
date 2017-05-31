@@ -1,0 +1,131 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Packages{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/packages.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="main_page_title">
+        <div class="row">
+            <section id="themo_page_header_1" class="page-title left">
+                <h1>DotKernel 3 Composer Repository</h1>
+            </section>
+        </div>
+    </div>
+    <div class="container">
+
+
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <h3 class="search-h3">
+                    Filter by package name:
+                </h3>
+                <input class="search-input" type="text" id="search" title="search" autocomplete="off" autofocus="">
+            </div>
+        </div>
+
+        <div class="spacing"></div>
+        <div class="hline"></div>
+    </div>
+    <div class="spacing"></div>
+
+    <div id="package-list" class="container">
+        {% for package in data %}
+            <div class="row" style="display: block;">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="panel panel-default panel-component">
+                        <div class="panel-heading">
+                            <h4 id="{{ package.name }}">
+                                {{ package.name }}
+                                <a href="#{{ package.name }}"><small>¶</small></a>
+                            </h4>
+                        </div>
+
+                        <div class="panel-body">
+                            <p>{{ package.description }}</p>
+
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <th class="info">Homepage</th>
+                                    <td><a href="{{ package.repository }}" class="repository" target="_blank">{{ package.repository }}</a></td>
+                                </tr>
+                                <tr>
+                                    <th class="info">License</th>
+                                    <td class="license">{{ package.license }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="info">Releases</th>
+                                    <td>
+                                        {% for version, url in package.versions %}
+                                            <a class="url-style"  href="{{ url }}">{{ version }}</a>
+                                            {% if not loop.last %},{% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="info">Required by</th>
+                                    <td>
+                                        <ul>
+                                            {% for require, url in package.requiredByPackages %}
+                                                <li><a class="url-style" href="#{{ require }}">{{ require }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block footer %}
+    <div class="footer-btm-bar">
+        <div class="container">
+            <div class="footer-copyright row">
+                <div class="col-xs-12">
+                    <ul>
+                        <li>
+                            <a href="https://www.dotkernel.com/" target="_blank">
+                                <img src="https://docs.dotkernel.com/assets/images/dk.png">DotKernel 3 Official Site
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/dotkernel/" target="_blank">
+                                <img src="https://docs.dotkernel.com/assets/images/github.png">DotKernel 3 at Github
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://stackoverflow.com/questions/tagged/dotkernel3" target="_blank">
+                                <img src="https://docs.dotkernel.com/assets/images/stack.png">DotKernel 3 at Stackoverflow
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://packagist.org/search/?q=dotkernel/" target="_blank">
+                                <img src="https://docs.dotkernel.com/assets/images/packagist.png">DotKernel at Packagist
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://gitter.im/dotkernel3" target="_blank">
+                                <img src="https://docs.dotkernel.com/assets/images/gitter.png">DotKernel 3 at Gitter
+                            </a>
+                        </li>
+                    </ul>
+                    <p>
+                        <span class="footer_copy">
+                            &copy; 2009 - 2016 DotBoost Technologies Inc.
+                            <br>&copy; {{ "now"|date("Y") }} Apidemia Inc.
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('js/search.js') }}"></script>
+{% endblock %}

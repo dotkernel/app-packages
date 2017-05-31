@@ -1,0 +1,57 @@
+<?php
+
+return [
+    //zend-db database adapters
+    'db' => [
+        'adapters' => [
+            'database' => [
+                'driver' => 'Pdo_Mysql',
+                'hostname' => 'localhost',
+                'database' => '',
+                'username' => '',
+                'password' => '',
+                'charset' => 'utf8'
+            ]
+        ]
+    ],
+
+    'dot_mapper' => [
+        'default_adapter' => 'database',
+    ],
+
+    'dot_mail' => [
+        'default' => [
+            'smtp_options' => [
+                'host' => '',
+                'port' => 587,
+                'connection_config' => [
+                    'username' => '',
+                    'password' => ''
+                ]
+            ]
+        ]
+    ],
+
+    'dot_user' => [
+        'register_options' => [
+            'captcha_options' => [
+                'class' => 'recaptcha',
+                'options' => [
+                    'site_key' => '',
+                    'secret_key' => '',
+                    'theme' => 'light',
+                ]
+            ]
+        ],
+    ],
+
+    'recaptcha' => [
+        'site_key' => 'YOUR SITE KEY',
+        'secret_key' => 'YOUR SECRET KEY',
+    ],
+
+    'contact' => [
+        'notification_receivers' => [
+        ],
+    ],
+];
