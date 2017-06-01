@@ -168,7 +168,7 @@ input.form-control {
 /***** Header *****/
 @media ( min-width: 1200px) {
     .app-header .container {
-        padding: 15px 50px;
+        padding: 5px 50px;
         width: 100%;
     }
 }
@@ -201,8 +201,7 @@ input.form-control {
 
 .navbar-brand img {
     display: block;
-    width: 170px;
-    height: 29px;
+    height: 42px;
 }
 
 .navbar-inverse .navbar-nav > li > a {
