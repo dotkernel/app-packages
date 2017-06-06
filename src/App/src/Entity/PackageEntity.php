@@ -39,7 +39,7 @@ class PackageEntity extends Entity
 
     /** @var  string */
     protected $requires;
-    
+
     /** @var array  */
     protected $packageIdLinks = [];
 
