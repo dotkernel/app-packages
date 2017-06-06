@@ -67,10 +67,10 @@ class PackageService
         $cronStatMapper = $this->mapperManager->get(CronStatEntity::class);
         /** @var CronStatEntity[] $cronStat */
         $cronStat = $cronStatMapper->find('byName', ['cronName' => self::CRON_UPDATE_PACKAGES]);
-        if (!empty($cronStat)) {
-            $cronStat = $cronStat[0];
+        if (empty($cronStat)) {
+            return "never";
         }
-
+        $cronStat = $cronStat[0];
         return $cronStat->getLastRun();
     }
 

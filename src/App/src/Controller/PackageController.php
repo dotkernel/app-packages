@@ -59,11 +59,16 @@ class PackageController extends AbstractActionController
     public function indexAction(): ResponseInterface
     {
         $packages = $this->packageService->getPackages();
-        $lastUpdate = new \DateTime($this->packageService->getLastUpdated());
-        $lastUpdated = date_diff($lastUpdate, new \DateTime());
-        $format = $lastUpdated->h === 0 ? '%i minutes' : '%h hours';
+        if ($this->packageService->getLastUpdated() == 'never') {
+            $lastUpdatedFormated = 'never';
+        } else {
+            $lastUpdate = new \DateTime($this->packageService->getLastUpdated());
+            $lastUpdated = date_diff($lastUpdate, new \DateTime());
+            $format = $lastUpdated->h === 0 ? '%i minutes' : '%h hours';
+            $lastUpdatedFormated = $lastUpdated->format($format);
+        }
         return new HtmlResponse(
-            $this->template('app::packages', ['data' => $packages, 'lastUpdated' => $lastUpdated->format($format)])
+            $this->template('app::packages', ['data' => $packages, 'lastUpdated' => $lastUpdatedFormated])
         );
     }
 }
