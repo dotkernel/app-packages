@@ -31,8 +31,6 @@ use Zend\Session\Container;
  * @method FlashMessengerPlugin messenger()
  * @method FormsPlugin|Form forms(string $name = null)
  * @method TemplatePlugin|string template(string $template = null, array $params = [])
- * @method AuthenticationPlugin authentication()
- * @method AuthorizationPlugin isGranted(string $permission, array $roles = [], mixed $context = null)
  * @method Container session(string $namespace)
  *
  * @Service

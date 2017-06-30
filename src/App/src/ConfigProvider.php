@@ -14,8 +14,10 @@ use Dot\Mapper\Factory\DbMapperFactory;
 use Frontend\App\Entity\CronStatEntity;
 use Frontend\App\Entity\PackageEntity;
 use Frontend\App\Entity\PackageEntityHydrator;
+use Frontend\App\Factory\PackageOptionsFactory;
 use Frontend\App\Mapper\CronStatDbMapper;
 use Frontend\App\Mapper\PackageDbMapper;
+use Frontend\App\Options\PackageOptions;
 use Frontend\App\Service\PackageService;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
@@ -54,6 +56,7 @@ class ConfigProvider
         return [
             'factories' => [
                 PackageService::class => AnnotatedServiceFactory::class,
+                PackageOptions::class => PackageOptionsFactory::class,
             ],
             'aliases' => [
                 'PackageService' => PackageService::class,

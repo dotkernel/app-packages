@@ -15,6 +15,7 @@ use Dot\Mapper\Mapper\MapperManager;
 use Frontend\App\Entity\CronStatEntity;
 use Frontend\App\Entity\PackageEntity;
 use Frontend\App\Mapper\PackageMapperInterface;
+use Frontend\App\Options\PackageOptions;
 use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
 use Packagist\Api\Result\Result;
@@ -31,17 +32,22 @@ class PackageService
     /** @var  MapperManager */
     protected $mapperManager;
 
+    /** @var  PackageOptions */
+    protected $packageOptions;
+
     /**
      * PackageService constructor.
      * @param Client $client
      * @param MapperManager $mapperManager
+     * @param PackageOptions $packageOptions
      *
-     * @Inject({Client::class, MapperManager::class})
+     * @Inject({Client::class, MapperManager::class, PackageOptions::class})
      */
-    public function __construct(Client $client, MapperManager $mapperManager)
+    public function __construct(Client $client, MapperManager $mapperManager, PackageOptions $packageOptions)
     {
         $this->client = $client;
         $this->mapperManager = $mapperManager;
+        $this->packageOptions = $packageOptions;
     }
 
     /**
@@ -158,7 +164,9 @@ class PackageService
         $packagesToSave = [];
         foreach ($apiPackages as $package) {
             $data = $this->getPackageData($package);
-
+            if (in_array($data['name'], $this->packageOptions->getBlacklistPackages())) {
+                continue;
+            }
             if (array_key_exists($data['name'], $packages)) {
                 /** @var PackageEntity $entity */
                 $entity = $packageMapper->getHydrator()->hydrate($data, $packages[$data['name']]);
@@ -173,6 +181,7 @@ class PackageService
         $this->savePackages($packagesToSave);
 
         $cronStat->setLastRun(date("Y:m:d H:i:s", time()));
+
         $cronStatMapper->save($cronStat);
     }
 
