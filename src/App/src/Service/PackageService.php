@@ -18,7 +18,6 @@ use Frontend\App\Mapper\PackageMapperInterface;
 use Frontend\App\Options\PackageOptions;
 use Packagist\Api\Client;
 use Packagist\Api\Result\Package;
-use Packagist\Api\Result\Result;
 
 class PackageService
 {
@@ -188,7 +187,7 @@ class PackageService
 
     /**
      * @param string $vendor
-     * @return Result[]
+     * @return String[]
      */
     public function getPackagesFromApi(string $vendor)
     {
@@ -200,7 +199,7 @@ class PackageService
      * @param String $package
      * @return array
      */
-    private function getPackageData(String $package)
+    private function getPackageData(string $package)
     {
         $packageDetails = $this->client->get($package);
         /** @var Package\Version[] $versions */
