@@ -192,17 +192,17 @@ class PackageService
      */
     public function getPackagesFromApi(string $vendor)
     {
-        $packages = $this->client->search($vendor);
+        $packages = $this->client->all(array('vendor' => $vendor));
         return $packages;
     }
 
     /**
-     * @param Result $package
+     * @param String $package
      * @return array
      */
-    private function getPackageData(Result $package)
+    private function getPackageData(String $package)
     {
-        $packageDetails = $this->client->get($package->getName());
+        $packageDetails = $this->client->get($package);
         /** @var Package\Version[] $versions */
         $versions = $packageDetails->getVersions();
         $allRequires = $versions['dev-master']->getRequire();
