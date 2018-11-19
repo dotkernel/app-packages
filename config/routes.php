@@ -1,6 +1,9 @@
 <?php
 
 use Frontend\App\Controller\PackageController;
+use Psr\Container\ContainerInterface;
+use Zend\Expressive\Application;
+use Zend\Expressive\MiddlewareFactory;
 
 /**
  * Setup routes with a single request method:
@@ -28,7 +31,7 @@ use Frontend\App\Controller\PackageController;
  *     'contact'
  * );
  */
-
-/** @var \Zend\Expressive\Application $app */
-
-$app->route('/', [PackageController::class], ['GET'], 'packages');
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+    /** @var \Zend\Expressive\Application $app */
+    $app->route('/', [PackageController::class], ['GET'], 'packages');
+};
