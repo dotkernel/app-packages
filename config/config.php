@@ -10,6 +10,18 @@ $cacheConfig = [
     'config_cache_path' => __DIR__ . '/../data/config-cache.php',
 ];
 $aggregator = new ConfigAggregator([
+    // zend expressive & middleware factory
+    \Zend\Expressive\ConfigProvider::class,
+
+    // router config
+    \Zend\Expressive\Router\ConfigProvider::class,
+    \Zend\Expressive\Router\FastRouteRouter\ConfigProvider::class,
+
+    \Zend\Expressive\Twig\ConfigProvider::class,
+    \Zend\Expressive\Helper\ConfigProvider::class,
+
+    // handler runner
+    \Zend\HttpHandlerRunner\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 
